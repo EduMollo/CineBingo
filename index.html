@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#102b25" />
+    <meta name="description" content="Um bingo de cinema em quadro negro: escolha um gênero, marque os momentos do filme e descubra se ele é foda." />
+    <title>FILME! — Bingo de cinema</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <svg class="svg-defs" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <filter id="chalk-roughen" x="-12%" y="-12%" width="124%" height="124%">
+        <feTurbulence baseFrequency="0.035" numOctaves="2" result="noise" seed="4" type="fractalNoise" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.15" />
+      </filter>
+      <symbol id="icon-clapper" viewBox="0 0 84 84">
+        <path d="M13 32h58v41H13zM13 43h58M13 32l-4-12 56-16 4 13zM24 16l12 12M43 11l12 12M22 43l11-11M45 43l11-11" />
+      </symbol>
+      <symbol id="icon-star" viewBox="0 0 64 64">
+        <path d="m32 6 7.6 16 17.4 2.4-12.6 12.4 3.1 18-15.5-8.5-15.5 8.5 3.1-18L7 24.4 24.4 22z" />
+      </symbol>
+      <symbol id="icon-reel" viewBox="0 0 64 64">
+        <circle cx="32" cy="32" r="23"/><circle cx="32" cy="32" r="4"/><circle cx="32" cy="18" r="5"/><circle cx="46" cy="32" r="5"/><circle cx="32" cy="46" r="5"/><circle cx="18" cy="32" r="5"/>
+      </symbol>
+      <symbol id="icon-spark" viewBox="0 0 64 64">
+        <path d="M32 6c2.6 17 7 21.4 26 26-19 4.6-23.4 9-26 26C29.4 41 25 36.6 6 32 25 27.4 29.4 23 32 6Z" />
+      </symbol>
+      <symbol id="icon-heart" viewBox="0 0 64 64">
+        <path d="M32 54 11.5 33C-2 18 17 1 32 18 47 1 66 18 52.5 33Z" />
+      </symbol>
+      <symbol id="icon-moon" viewBox="0 0 64 64">
+        <path d="M49 47A24 24 0 0 1 18 15a24 24 0 1 0 31 32Z"/><path d="m46 10 2 5 5 2-5 2-2 5-2-5-5-2 5-2z" />
+      </symbol>
+      <symbol id="icon-bolt" viewBox="0 0 64 64">
+        <path d="M37 5 12 35h18l-4 24 26-32H34z" />
+      </symbol>
+      <symbol id="icon-eye" viewBox="0 0 64 64">
+        <path d="M5 32c8-12 17-18 27-18s19 6 27 18c-8 12-17 18-27 18S13 44 5 32Z"/><circle cx="32" cy="32" r="9"/><circle cx="32" cy="32" r="2" />
+      </symbol>
+      <symbol id="icon-flower" viewBox="0 0 64 64">
+        <circle cx="32" cy="32" r="6"/><path d="M31 25C17 14 29 2 36 13c4 6 0 11-4 13M38 29c16-9 25 7 12 12-7 3-11-1-13-8M35 39c7 17-11 22-15 9-2-7 3-10 9-12M25 33C8 40 3 23 17 20c7-1 10 4 10 10M32 39v19" />
+      </symbol>
+    </svg>
+
+    <div class="chalkboard">
+      <div class="board-inner">
+        <header class="site-header">
+          <a class="wordmark" href="#inicio" aria-label="FILME! Início">
+            <span class="wordmark-mark"><svg class="chalk-svg"><use href="#icon-clapper" /></svg></span>
+            <span>FILME<span class="bang">!</span></span>
+          </a>
+          <button id="refreshButton" class="refresh-button" type="button" title="Sortear nova cartela">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10a8 8 0 1 0 .2 3.8M20 4v6h-6" /></svg>
+            <span>Nova cartela</span>
+          </button>
+        </header>
+
+        <main id="inicio">
+          <section class="hero" aria-labelledby="page-title">
+            <div class="hero-copy">
+              <h1 id="page-title">Esse filme<br /><em>é foda?</em></h1>
+            </div>
+          </section>
+
+          <section class="game" aria-label="Jogo de bingo de cinema">
+            <div class="section-heading">
+              <div>
+                <span class="section-kicker">01 / ESCOLHA A VIBE</span>
+                <h2>Qual é o filme de hoje?</h2>
+              </div>
+              <p>Cada gênero traz uma cartela diferente.</p>
+            </div>
+            <div id="categoryTabs" class="category-tabs" role="group" aria-label="Categorias de filme"></div>
+
+            <div class="game-layout">
+              <section class="bingo-panel" aria-labelledby="board-title">
+                <div class="board-topline">
+                  <div>
+                    <span id="board-category" class="board-overline">CARTELA GERAL</span>
+                    <h2 id="board-title">Marque o que rolar<span class="chalk-dot">.</span></h2>
+                  </div>
+                  <div class="card-number">CARTELA <span id="cardNumber">#0000</span></div>
+                </div>
+                <div class="board-shell">
+                  <div class="letter-row" aria-hidden="true"><span>F</span><span>I</span><span>L</span><span>M</span><span>E</span></div>
+                  <div id="bingoGrid" class="bingo-grid" role="group" aria-label="Cartela FILME com 25 casas"></div>
+                </div>
+                <p class="board-hint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 18 12-12 3 3L7 21H4v-3ZM14 8l3 3" /></svg> Toque numa casa para riscar com giz.</p>
+              </section>
+
+              <aside class="score-panel" aria-labelledby="score-title">
+                <div class="score-icon" aria-hidden="true"><svg class="chalk-svg"><use href="#icon-star" /></svg></div>
+                <span class="score-kicker">O VEREDITO</span>
+                <h2 id="score-title">Como anda<br />essa sessão?</h2>
+                <div class="score-count"><strong id="markedCount">0</strong><span>/ 24<br />momentos</span></div>
+                <div id="progressBar" class="progress-track" role="progressbar" aria-label="Momentos marcados" aria-valuemin="0" aria-valuemax="24" aria-valuenow="0"><span id="progressFill"></span></div>
+                <div class="score-divider"></div>
+                <div class="lines-row"><span>Linhas completas</span><strong id="lineCount">0 / 12</strong></div>
+                <div id="verdict" class="verdict" aria-live="polite">Aperte o play<span>O filme mal começou.</span></div>
+                <div id="filmCallout" class="film-callout" hidden><span>F I L M E !</span><small>Uma linha completa. Isso é cinema!</small></div>
+                <button id="clearButton" class="clear-button" type="button">Limpar marcações <span aria-hidden="true">↗</span></button>
+              </aside>
+            </div>
+          </section>
+
+        </main>
+      </div>
+    </div>
+  </body>
+</html>
+
