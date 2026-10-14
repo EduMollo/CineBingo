@@ -37,10 +37,14 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--yellow); outlin
 }
 .board-inner { width: min(100% - 64px, 1280px); margin: auto; }
 .site-header { height: 112px; display: flex; align-items: center; justify-content: space-between; gap: 24px; border-bottom: 1px dashed rgba(240,238,213,.22); }
-.wordmark { display: inline-flex; gap: 12px; align-items: center; color: var(--chalk); text-decoration: none; font: 700 37px/1 var(--hand); letter-spacing: -2px; transform: rotate(-2deg); text-shadow: 1px 2px 0 rgba(255,255,255,.12); }
+.wordmark { display: inline-flex; gap: 11px; align-items: center; color: var(--chalk); text-decoration: none; transform: rotate(-2deg); text-shadow: 1px 2px 0 rgba(255,255,255,.12); }
 .wordmark-mark { width: 48px; height: 48px; display: grid; place-items: center; transform: rotate(-11deg); }
 .wordmark svg { width: 45px; height: 45px; stroke-width: 2.6; }
-.bang { color: var(--yellow); }
+.wordmark-copy { display: flex; flex-direction: column; align-items: flex-start; }
+.wordmark-name { font: 700 33px/.95 var(--hand); letter-spacing: -1.8px; }
+.wordmark-subtitle { margin-top: 1px; font: 600 12px/1.1 var(--sans); letter-spacing: .015em; color: #d1dbc8; text-shadow: none; }
+.wordmark-subtitle strong { color: var(--yellow); font-weight: 800; }
+.wordmark:hover .wordmark-name { color: var(--yellow); }
 .refresh-button { display: flex; align-items: center; gap: 11px; min-height: 48px; padding: 0 19px; border: 1.5px solid var(--chalk); border-radius: 99px; color: var(--board-deep); background: var(--chalk); font: 800 13px/1 var(--sans); letter-spacing: .05em; text-transform: uppercase; cursor: pointer; box-shadow: 3px 4px 0 rgba(245, 241, 221, .2); transition: transform .2s, box-shadow .2s, background .2s; }
 .refresh-button:hover { transform: translateY(-3px) rotate(-1deg); box-shadow: 4px 7px 0 rgba(245, 241, 221, .15); background: #fffbed; }
 .refresh-button:active { transform: translateY(1px); box-shadow: none; }
@@ -124,7 +128,7 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--yellow); outlin
 }
 @media (max-width: 740px) {
   .board-inner { width: min(100% - 30px, 600px); }
-  .site-header { height: 84px; }.wordmark { font-size: 30px; }.wordmark-mark, .wordmark svg { width: 36px; height: 36px; }
+  .site-header { height: 84px; }.wordmark-name { font-size: 28px; }.wordmark-mark, .wordmark svg { width: 36px; height: 36px; }
   .refresh-button { padding: 0 13px; min-height: 43px; font-size: 11px; gap: 7px; }
   .hero { padding: 30px 0 27px; }.hero h1 { font-size: clamp(54px, 11vw, 80px); }
   .section-heading { align-items: start; }.section-heading p { display: none; }
@@ -133,7 +137,7 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--yellow); outlin
 }
 @media (max-width: 500px) {
   .chalkboard { margin: 5px; border-width: 6px; }.board-inner { width: calc(100% - 24px); }
-  .site-header { height: 76px; }.wordmark { gap: 4px; font-size: 26px; }.wordmark-mark, .wordmark svg { width: 31px; height: 31px; }
+  .site-header { height: 76px; }.wordmark { gap: 6px; }.wordmark-name { font-size: 22px; letter-spacing: -1.2px; }.wordmark-subtitle { font-size: 9px; }.wordmark-mark, .wordmark svg { width: 31px; height: 31px; }
   .refresh-button span { display: none; }.refresh-button { width: 44px; justify-content: center; padding: 0; }.refresh-button svg { width: 21px; height: 21px; }
   .hero { padding: 25px 1px 24px; }.hero h1 { font-size: clamp(50px, 13vw, 67px); }
   .section-heading { padding-top: 22px; }.section-heading h2 { font-size: 26px; }
@@ -144,4 +148,3 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--yellow); outlin
   .chalk-x path { stroke-width: 4; }.board-hint { font-size: 12px; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } }
-
