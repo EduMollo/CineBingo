@@ -278,4 +278,3 @@ document.getElementById('clearButton').addEventListener('click', () => {
 });
 
 render();
-
